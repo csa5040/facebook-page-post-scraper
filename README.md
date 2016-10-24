@@ -10,11 +10,19 @@ The purpose of the script is to gather Facebook data for semantic analysis, whic
 
 ## Usage
 
-### Scrape Posts form Public Page
+### Scrape Posts from Public Page
 
 The Page data scraper is implemented as a Python 2.7 script in `get_fb_posts_fb_page.py` (and for Python 3.5, `py3.5_get_fb_posts_fb_page.py`); fill in the App ID and App Secret of a Facebook app you control (I strongly recommend creating an app just for this purpose) and the Page ID of the Facebook Page you want to scrape at the beginning of the file. Then run the script by `cd` into the directory containing the script, then running `python get_fb_posts_fb_page.py`.
 
 Example CSVs for CNN, NYTimes, and BuzzFeed data are not included in this repository due to size, but you can download [CNN data here](https://dl.dropboxusercontent.com/u/2017402/cnn_facebook_statuses.csv.zip) [2.7MB ZIP], [NYTimes data here](https://dl.dropboxusercontent.com/u/2017402/nytimes_facebook_statuses.csv.zip) [4.9MB ZIP], and [BuzzFeed data here](https://dl.dropboxusercontent.com/u/2017402/buzzfeed_facebook_statuses.csv.zip) [2.1MB ZIP].
+
+### Scrape Posts from Multiple Public Pages
+
+Multiple pages can be scraped at once with the Python 2.7 script `get_fb_posts_fb_page_list.py`. You must fill in the App ID and App Secret in the same way as for the single page script. You must provide the script an input file, e.g. `list.txt`, where each line is a Page ID of a Facebook Page you want to scrape. You then start the scraper with:
+
+    python get_fb_posts_fb_page_list --file list.txt
+
+Each page will be saved in JSON format in the directory you run the script. Each post is a JSON object inside of a JSON array for the page.
 
 ### Scrape Posts from Open Group
 
