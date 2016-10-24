@@ -20,9 +20,9 @@ Example CSVs for CNN, NYTimes, and BuzzFeed data are not included in this reposi
 
 Multiple pages can be scraped at once with the Python 2.7 script `get_fb_posts_fb_page_list.py`. You must fill in the App ID and App Secret in the same way as for the single page script. You must provide the script an input file, e.g. `list.txt`, where each line is a Page ID of a Facebook Page you want to scrape. You then start the scraper with:
 
-    python get_fb_posts_fb_page_list --file list.txt
+    python get_fb_posts_fb_page_list --file list.txt --maxtokens 40
 
-Each page will be saved in JSON format in the directory you run the script. Each post is a JSON object inside of a JSON array for the page.
+Each page will be saved in JSON format in the directory you run the script. Each post is a JSON object inside of a JSON array for the page. the --maxtokens switch is optional, but will default to not scraping posts that contain more than 40 tokens.
 
 ### Scrape Posts from Open Group
 
