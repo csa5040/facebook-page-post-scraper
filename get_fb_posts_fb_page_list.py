@@ -20,7 +20,8 @@ smileys = """:-) :) :o) :] :3 :c) :> =] 8) =) :} :^)
              :D 8-D 8D x-D xD X-D XD =-D =D =-3 =3 B^D""".split()
 emoji_list = "|".join(map(re.escape, smileys))
 # regex for detecting a URL: see http://stackoverflow.com/questions/700163/detecting-a-naughty-or-nice-url-or-link-in-a-text-string
-url_pattern = r'[^\b]\.([a-zA-Z]{2}|aero|asia|biz|cat|com|coop|edu|gov|info|int|jobs|mil|mobi|museum|name|net|org|pro|tel|travel)[\b/]'
+#url_pattern = r'[^\b]\.([a-zA-Z]{2}|aero|asia|biz|cat|com|coop|edu|gov|info|int|jobs|mil|mobi|museum|name|net|org|pro|tel|travel)[\b/]'
+url_pattern = r'https?://\S*'
 whitespace_pattern = r'[\n\t ]+'
 
 def request_once(url):
@@ -189,7 +190,7 @@ def scrapeFacebookPageFeedStatus(page_id, access_token, max_tokens):
     if not statuses:
         print "\nFailed! No posts scraped from this page.\n"
         print "--------------------------------------------------------------"
-        return False
+        return 0
 
     filename='%s_facebook_statuses_%s.json' %(page_id, datetime.datetime.now().strftime('%Y-%m-%d'))
     with open(filename, 'wb') as file:
@@ -244,7 +245,7 @@ def scrapeFacebookPageFeedStatus(page_id, access_token, max_tokens):
         print "\nDone!\n%s Statuses Processed in %s" % \
                 (num_processed, datetime.datetime.now() - scrape_starttime)
 
-        return True
+        return num_processed
 
 
 if __name__ == '__main__':
@@ -255,22 +256,27 @@ if __name__ == '__main__':
     args = parser.parse_args()
     
     scrape_starttime = datetime.datetime.now()
-    num_processed = 0
+    pages_processed = 0
+    posts_processed = 0
+    total_posts_processed = 0
 
     skipped_pages = []
+
 
     #loop through the id list
     with open(args.input_file, 'rb') as input_file:
         for line in input_file.xreadlines():
             line=line.rstrip('\r\n')
             page_id=line
-            if scrapeFacebookPageFeedStatus(page_id, access_token, args.max_tokens):
-                num_processed += 1
+            posts_processed = scrapeFacebookPageFeedStatus(page_id, access_token, args.max_tokens)
+            if posts_processed != 0:
+                pages_processed += 1
             else:
                 skipped_pages.append(page_id)
+            total_posts_processed += posts_processed
 
-    print "\nDone!\n%s Pages Scraped in %s" % \
-            (num_processed, datetime.datetime.now() - scrape_starttime)
+    print "\nDone!\n%s Posts in %s Pages Scraped in %s" % \
+            (total_posts_processed, pages_processed, datetime.datetime.now() - scrape_starttime)
 
     if skipped_pages:
         print "\nSkipped Pages:\n"
