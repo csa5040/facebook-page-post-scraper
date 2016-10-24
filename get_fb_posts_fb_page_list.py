@@ -28,11 +28,13 @@ def request_once(url):
     req = urllib2.Request(url)
     try: 
         response = urllib2.urlopen(req)
+        if response.getcode() == 200:
+            success = True
+        return response.read()
     except Exception, e:
         print e
         print "Error for URL %s: %s" % (url, datetime.datetime.now())
         return None
-    return response.read()
 
 # Needed to write tricky unicode correctly to csv
 def unicode_normalize(text):
