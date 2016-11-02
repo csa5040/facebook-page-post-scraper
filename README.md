@@ -1,5 +1,7 @@
 # Facebook Page Post Scraper
 
+[![Join the chat at https://gitter.im/GaudiumLabs-scraper/Lobby](https://badges.gitter.im/GaudiumLabs-scraper/Lobby.svg)](https://gitter.im/GaudiumLabs-scraper/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 ![](/examples/fb_scraper_data.png)
 
 A tool for gathering *all* the posts and comments of a Facebook Page (or Open Facebook Group) and related metadata, including post message, post links, and counts of each reaction on the post. All this data is exported as a CSV, able to be imported into any data analysis program like Excel.
